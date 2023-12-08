@@ -10,8 +10,8 @@ namespace BlazorCrm.Shared
     {
         public int Id { get; set; }
         public required string Text { get; set; }
-        public int? EmployeesId { get; set; }
-        public Employees? Employees { get; set; }
+        public int? EmployeeId { get; set; }
+        public Employee? Employees { get; set; }
         public DateTime DateCreated { get; set; } = DateTime.Now;
     }
 }

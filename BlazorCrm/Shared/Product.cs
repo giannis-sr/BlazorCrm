@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace BlazorCrm.Shared
 {
-    public class Products
+    public class Product
     {
     }
 }
