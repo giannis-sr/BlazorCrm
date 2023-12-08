@@ -8,5 +8,9 @@ namespace BlazorCrm.Shared
 {
     public class Product
     {
+        public int Id { get; set; }
+        public int Name { get; set; }
+        public required string Text { get; set; }
+        
     }
 }

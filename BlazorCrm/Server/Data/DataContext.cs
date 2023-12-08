@@ -15,7 +15,7 @@ namespace BlazorCrm.Server.Data
         {
             base.OnConfiguring(optionsBuilder);
             optionsBuilder.
-                UseSqlServer("Server=.\\SQLExpress;Database=blazorCrmdb;Trusted_Connection=true;TrustServerCertificate=true");
+                UseSqlServer("Server=.\\SQLExpress;Database=BlazorCrmDb;Trusted_Connection=true;TrustServerCertificate=true;");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -29,7 +29,6 @@ namespace BlazorCrm.Server.Data
                     Email = "Nikos.Bezos@gmail.com",
                     Phone = "232045553",
                     DateOfBirth = new DateTime(2001, 2, 3),
-
                     NickName = "nickbez",
                     Place = "Trikala",
                     Salary = 3000
@@ -37,13 +36,14 @@ namespace BlazorCrm.Server.Data
                  new Employee
                  {
                      Id = 2,
-                     FirstName = "d",
-                     LastName = "d",
-                     Email = "d",
-                     Phone = "555",
-                     NickName = "dd",
-                     Place = "d",
-                     Salary = 2000
+                     FirstName = "Nikos",
+                     LastName = "Bezos",
+                     Email = "Nikos.Bezos@gmail.com",
+                     Phone = "232045553",
+                     DateOfBirth = new DateTime(2001, 2, 3),
+                     NickName = "nickbez",
+                     Place = "Trikala",
+                     Salary = 3000
                  }
                  );
 
