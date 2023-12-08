@@ -3,11 +3,11 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.8.34316.72
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorCrm.Server", "BlazorCrm\Server\BlazorCrm.Server.csproj", "{7B2258CC-E892-4D00-9E4B-AE9E5C6CAA2E}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorCrm.Server", "BlazorCrm\Server\BlazorCrm.Server.csproj", "{7B2258CC-E892-4D00-9E4B-AE9E5C6CAA2E}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorCrm.Client", "BlazorCrm\Client\BlazorCrm.Client.csproj", "{98728DDC-4482-469B-99B5-182B5C653BEB}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorCrm.Client", "BlazorCrm\Client\BlazorCrm.Client.csproj", "{98728DDC-4482-469B-99B5-182B5C653BEB}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BlazorCrm.Shared", "BlazorCrm\Shared\BlazorCrm.Shared.csproj", "{DCC62CCF-3199-478E-A459-AE2943080E23}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BlazorCrm.Shared", "BlazorCrm\Shared\BlazorCrm.Shared.csproj", "{DCC62CCF-3199-478E-A459-AE2943080E23}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
