@@ -1,5 +1,6 @@
 ﻿@page "/Employee"
 @inject NavigationManager NavigationManager
+@inject HttpClient Http
 <h3>Employees</h3>
 
 <SfGrid DataSource="GridData" AllowFiltering="true" AllowPaging="true" Toolbar="@(new List<string>() { "Search"})">
@@ -15,6 +16,7 @@
 
                 }
             </Template>
+          
         </GridColumn>
             <GridColumn Field="FirstName" HeaderText="First Name"></GridColumn>
             <GridColumn Field="LastName" HeaderText="Last Name"></GridColumn>
@@ -25,37 +27,24 @@
     
 </SfGrid>
 @code {
-    public List<Employee> GridData { get; set; } = new List<Employee>
-    {
-        new Employee
-        {
-                    Id = 1,
-                    FirstName = "Nikos",
-                    LastName = "Bezos",
-                    Email = "Nikos.Bezos@gmail.com",
-                    Phone = "232045553",
-                    DateOfBirth = new DateTime(2001, 2, 3),
+    public List<Employee> GridData { get; set; } = new List<Employee>();
 
-                    NickName = "nickbez",
-                    Place = "Trikala",
-                    Salary = 3000
-        },
-         new Employee
+    protected override async Task OnInitializedAsync()
+    {
+        var result = await Http.GetFromJsonAsync<List<Employee>>("api/employees");
+        if(result is not null)
         {
-                    Id = 2,
-                    FirstName = "Nikos",
-                    LastName = "Bezos",
-                    Email = "Nikos.Bezos@gmail.com",
-                    Phone = "232045553",
-                    DateOfBirth = new DateTime(2001, 2, 3),
-                    NickName = "nickbez",
-                    Place = "Trikala",
-                    Salary = 3000
+            GridData = result;
         }
-    };
+    }
 
     void EditEmployee(int id)
     {
-        NavigationManager.NavigateTo($"contacts/edit/{id}");
+        NavigationManager.NavigateTo($"employees/edit/{id}");
+    }
+
+    void CreateEmployee()
+    {
+        NavigationManager.NavigateTo($"employees/new");
     }
 }
