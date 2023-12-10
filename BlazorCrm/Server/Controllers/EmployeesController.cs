@@ -3,6 +3,7 @@ using BlazorCrm.Shared;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
+using Syncfusion.Blazor.Kanban.Internal;
 
 namespace BlazorCrm.Server.Controllers
 {
@@ -17,7 +18,7 @@ namespace BlazorCrm.Server.Controllers
         }
 
         [HttpGet]
-        public async Task<ActionResult<List<Employee>>> GetAllContacts()
+        public async Task<ActionResult<List<Employee>>> GetAllEmployees()
         {
             return await _context.Employees
                 .Where(c => !c.IsDeleted)
@@ -25,7 +26,7 @@ namespace BlazorCrm.Server.Controllers
         }
 
         [HttpGet("{id}")]
-        public async Task<ActionResult<Employee>> GetContactById(int id)
+        public async Task<ActionResult<Employee>> GetEmployeeById(int id)
         {
             var result = await _context.Employees.FindAsync(id);
             if (result is null)
@@ -46,7 +47,7 @@ namespace BlazorCrm.Server.Controllers
         }
 
         [HttpPut("{id}")]
-        public async Task<ActionResult<Employee>> UpdateContact(int id, Employee employee)
+        public async Task<ActionResult<Employee>> UpdateEmployee(int id, Employee employee)
         {
             var dbEmployee = await _context.Employees.FindAsync(id);
             if (dbEmployee is null)
@@ -56,19 +57,40 @@ namespace BlazorCrm.Server.Controllers
 
             dbEmployee.FirstName = employee.FirstName;
             dbEmployee.LastName = employee.LastName;
-            dbEmployee.NickName = employee.NickName;
+            
             dbEmployee.Email = employee.Email;
             dbEmployee.Phone = employee.Phone;
-            dbEmployee.DateOfBirth  = employee.DateOfBirth;
+            dbEmployee.NickName = employee.NickName;
             dbEmployee.Place = employee.Place;
+            dbEmployee.Salary = employee.Salary;
+            dbEmployee.DateOfBirth = employee.DateOfBirth;
+            
             dbEmployee.DateUpdated = DateTime.Now;
+            dbEmployee.DateStart = employee.DateStart;
+            dbEmployee.DateEnd  = employee.DateEnd;
+          
+            await _context.SaveChangesAsync();
 
 
 
 
             return Ok(employee);
         }
+
+        [HttpDelete("{id}")]
+        public async Task<ActionResult<List<Employee>>> DeleteEmployee(int id)
+        {
+            var dbEmployee = await _context.Employees.FindAsync(id);
+            if (dbEmployee is null)
+            {
+                return NotFound("Contact not found.");
+            }
+            dbEmployee.IsDeleted = true;
+            dbEmployee.DateDeleted = DateTime.Now;
+            await _context.SaveChangesAsync();
+            return await GetAllEmployees();
+        }
     }
 
-
+   
 }
