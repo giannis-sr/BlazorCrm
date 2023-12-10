@@ -39,6 +39,33 @@ else
             Something went wrong
         </SfMessage>
     </p>
+    @if(Id is not null)
+    {
+        <h3>Notes</h3>
+        <SfTextBox CssClass="e-outline" Placeholder="New Note" Multiline="true"
+        FloatLabelType="@FloatLabelType.Auto" @bind-Value="newNote.Text"></SfTextBox>
+        <SfButton CssClass="e-inherit" Content="Add Note" OnClick="CreateNote"></SfButton>
+        <hr />
+        <p>
+            <SfButton IsPrimary="true" Content="Load All Note" OnClick="LoadNotes"></SfButton>
+
+        </p>
+        @foreach (var note in notes)
+        {
+            <SfCard>
+                <CardHeader Title="@note.DateCreated.ToString()"></CardHeader>
+                <CardContent Content="@note.Text"></CardContent>
+                <CardFooter>
+                    <CardFooterContent>
+                        <SfButton Content="Delete" IsPrimary="true" OnClick="@(() => DeleteNote(note.Id))">
+                            
+                        </SfButton>
+                    </CardFooterContent>
+                </CardFooter>
+            </SfCard>
+            <br />
+        }
+    }
 </div>
 
 @code {
@@ -47,6 +74,8 @@ else
 
     [Parameter]
     public int? Id { get; set; }
+    public List<Note> notes { get; set; } = new List<Note>();
+    public Note newNote { get; set; } = new Note { Text = string.Empty };
 
     public Employee employee { get; set; } = new Employee();
 
@@ -100,10 +129,10 @@ else
                 if (jsonResult is not null)
                 {
                     employee = jsonResult;
-                    
+
                     showSuccessMessage = true;
-                    
-                   
+
+
                 }
             }
             catch (Exception ex)
@@ -111,9 +140,9 @@ else
                 // Εδώ μπορείτε να εμφανίσετε το μήνυμα σφάλματος  
                 Console.WriteLine(ex.Message);
             }
-           
 
-         
+
+
 
         }
         else
@@ -122,5 +151,30 @@ else
         }
         //Prepei na mpei kapoio Tsk.Delay(3000) gia na emfanizontai ta notifications
         NavigationManager.NavigateTo("/employees");
+    }
+
+    async Task CreateNote()
+    {
+        if (Id is null)
+            return;
+
+        newNote.EmployeeId = Id;
+        var result = await Http.PostAsJsonAsync($"api/notes", newNote);
+        if (result.IsSuccessStatusCode)
+            await LoadNotes();
+    }
+
+    async Task DeleteNote(int noteId)
+    {
+        var result = await Http.DeleteFromJsonAsync<List<Note>>($"api/notes/{noteId}");
+        if (result is not null)
+            notes = result;
+    }
+
+    async Task LoadNotes()
+    {
+        var result = await Http.GetFromJsonAsync<List<Note>>($"api/notes/{employee.Id}");
+        if (result is not null)
+            notes = result;
     }
 }
