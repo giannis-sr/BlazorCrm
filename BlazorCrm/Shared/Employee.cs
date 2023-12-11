@@ -23,6 +23,10 @@ namespace BlazorCrm.Shared
 
         public bool IsDeleted { get; set; }
         public DateTime? DateOfBirth { get; set; }
+
+        //public double? Latitude { get; set; }
+        //public double? Longitude { get; set; }
+
         public DateTime? DateUpdated { get; set; }
         public DateTime? DateCreated { get; set;}
         public DateTime? DateDeleted { get; set; }
