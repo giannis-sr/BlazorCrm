@@ -1,5 +1,5 @@
-﻿@inject NavigationManager NavigationManager
-<SfAppBar ColorMode="AppBarColor.Primary">
+﻿@* @inject NavigationManager NavigationManager *@
+@* <SfAppBar ColorMode="AppBarColor.Primary">
     <SfButton CssClass="e-inherit" IconCss="e-icons e-home" Content="Home"
               OnClick="@(() => NavigateToPage("/"))" />
     <SfButton CssClass="e-inherit" IconCss="e-icons e-people" Content="Employees"
@@ -15,14 +15,65 @@
     <AppBarSpacer></AppBarSpacer>
     <SfButton CssClass="e-inherit" IconCss="e-icons e-plus " Content="New Employee"
               OnClick="@(() => NavigateToPage("/employees/new"))" />
-</SfAppBar>
-        <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
+</SfAppBar> *@
+<div class="top-row ps-3 navbar navbar-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="">BlazorCrm</a>
+        <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavBar">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+</div>
+
+<div class="@NavBarCssClass nav-scrollable" @onclick="ToggleNavBar">
+    <nav class="flex-column">
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="" Match="NavLinkMatch.All">
                 <span class="oi oi-home" aria-hidden="true"></span> Home
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="employees">
+                <span class="oi oi-plus" aria-hidden="true"></span> Employees
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="customers">
+                <span class="oi oi-list-rich" aria-hidden="true"></span> Customers
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="products">
+                <span class="oi oi-list-rich" aria-hidden="true"></span> Products
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="communications">
+                <span class="oi oi-list-rich" aria-hidden="true"></span> Communications
+            </NavLink>
+        </div>
+        <div class="nav-item px-3">
+            <NavLink class="nav-link" href="notes">
+                <span class="oi oi-list-rich" aria-hidden="true"></span> Notes
+            </NavLink>
+        </div>
+    </nav>
+</div>
 @code {
    
 
-    void NavigateToPage(string page)
+    // void NavigateToPage(string page)
+    // {
+    //     NavigationManager.NavigateTo(page);
+    // }
+
+
+    private bool collapseNavBar = true;
+
+    private string? NavBarCssClass => collapseNavBar ? "collapse" : null;
+
+    private void ToggleNavBar()
     {
-        NavigationManager.NavigateTo(page);
+        collapseNavBar = !collapseNavBar;
     }
 }
