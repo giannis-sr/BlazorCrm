@@ -1,12 +1,120 @@
 ﻿@page "/"
-
-<h1>Hello, world!</h1>
-
-<SfDatePicker TValue="DateTime?" Placeholder='Choose a Date'></SfDatePicker>
 @using Syncfusion.Blazor
 @using Syncfusion.Blazor.Navigations
 @using Syncfusion.Blazor.Schedule.Internal
-
 @inject IJSRuntime JSRuntime;
 
+@using Syncfusion.Blazor.Charts
+@using Syncfusion.Blazor.Grids
+@using Syncfusion.Blazor.Layouts
+<h1>Hello, world!</h1>
 
+<SfDatePicker TValue="DateTime?" Placeholder='Choose a Date'></SfDatePicker>
+
+
+@using Syncfusion.Blazor.Layouts
+
+<SfDashboardLayout CellSpacing="@(new double[]{10 ,10 })" Columns="8">
+    <DashboardLayoutPanels>
+        <DashboardLayoutPanel AllowDragging="false" Column="0" Row="0" SizeX="2" SizeY="1">
+            <HeaderTemplate><div>Panel 0</div></HeaderTemplate>
+            <ContentTemplate>
+                
+            </ContentTemplate>
+        </DashboardLayoutPanel>
+
+        <DashboardLayoutPanel AllowDragging="false" Column="2" Row="0" SizeX="2" SizeY="1">
+            <HeaderTemplate><div>Panel 1</div></HeaderTemplate>
+            <ContentTemplate><div>Panel Content</div></ContentTemplate>
+        </DashboardLayoutPanel>
+
+        <DashboardLayoutPanel AllowDragging="false" Column="4" Row="0" SizeX="2" SizeY="1">
+            <HeaderTemplate><div>Panel 2</div></HeaderTemplate>
+            <ContentTemplate><div>Panel Content</div></ContentTemplate>
+        </DashboardLayoutPanel>
+
+        <DashboardLayoutPanel AllowDragging="false" Column="6" Row="0" SizeX="2" SizeY="1">
+            <HeaderTemplate><div>Panel 3</div></HeaderTemplate>
+            <ContentTemplate><div>Panel Content</div></ContentTemplate>
+        </DashboardLayoutPanel>
+
+        <DashboardLayoutPanel AllowDragging="false" Column="0" Row="1" SizeX="4" SizeY="3">
+            <HeaderTemplate><div>Panel 4</div></HeaderTemplate>
+            <ContentTemplate><div>Panel Content</div></ContentTemplate>
+        </DashboardLayoutPanel>
+
+        <DashboardLayoutPanel AllowDragging="false" Column="4" Row="1" SizeX="4" SizeY="3">           
+                <ContentTemplate>
+                    <div style="height:auto; width:auto;">
+                        <SfChart ID="linechart" @ref="linechartObj">
+                            <ChartPrimaryXAxis ValueType="Syncfusion.Blazor.Charts.ValueType.DateTime">
+                            </ChartPrimaryXAxis>
+                            <ChartSeriesCollection>
+                                <ChartSeries DataSource="@DataSource" XName="XValue" YName="YValue" Type="ChartSeriesType.Line">
+                                    <ChartMarker Visible="true">
+                                        <ChartDataLabel Visible="true" Position="Syncfusion.Blazor.Charts.LabelPosition.Top">
+                                        </ChartDataLabel>
+                                    </ChartMarker>
+                                </ChartSeries>
+                            </ChartSeriesCollection>
+                        </SfChart>
+                    </div>
+                </ContentTemplate>            
+        </DashboardLayoutPanel>
+
+        <DashboardLayoutPanel AllowDragging="false" Column="0" Row="4" SizeX="8" SizeY="3">
+            <HeaderTemplate><div>Panel 6</div></HeaderTemplate>
+            <ContentTemplate><div>Panel Content</div></ContentTemplate>
+        </DashboardLayoutPanel>
+
+
+    </DashboardLayoutPanels>
+</SfDashboardLayout>
+
+<style>
+    .e-panel-header {
+        background-color: rgba(0, 0, 0, .1);
+        text-align: center;
+    }
+
+    .e-panel-content {
+        text-align: center;
+        margin-top: 10px;
+    }
+
+  /*   .map-container {
+        width: 100%;
+        height: 100%;
+        overflow: hidden;
+    } */
+</style>
+
+
+@code {
+    SfChart chartObj;
+    SfChart barchartObj;
+    SfRangeNavigator rangeObj;
+    SfChart linechartObj;
+
+    private object[] Value = new object[] { new DateTime(2006, 01, 01), new DateTime(2008, 01, 01) };
+    public class ChartData
+    {
+        public DateTime XValue { get; set; }
+        public double YValue { get; set; }
+        public string X { get; set; }
+        public double Y { get; set; }
+        public string Country { get; set; }
+        public string X1 { get; set; }
+        public double Y1 { get; set; }
+        public double Y2 { get; set; }
+        public double Y3 { get; set; }
+        public double Y4 { get; set; }
+    }
+    public List<ChartData> DataSource = new List<ChartData>
+{
+        new ChartData { XValue = new DateTime(2005, 01, 01), YValue = 21, X = "USA", Y =300.2, Country = "USA: 72", X1= "2012"},
+        new ChartData { XValue = new DateTime(2006, 01, 01), YValue = 24, X = "Russia", Y = 103.1, Country = "RUS: 103.1", X1= "2013"},
+        new ChartData { XValue = new DateTime(2007, 01, 01), YValue = 36, X = "Brazil", Y = 139.1, Country = "BRZ: 139.1", X1= "2014"},
+        new ChartData { XValue = new DateTime(2008, 01, 01), YValue = 38, X = "India", Y = 262.1, Country = "IND: 262.1", X1= "2015"},
+        };
+}
