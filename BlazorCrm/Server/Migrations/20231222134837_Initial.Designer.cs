@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace BlazorCrm.Server.Migrations
 {
     [DbContext(typeof(DataContext))]
-    [Migration("20231208150028_Initial")]
+    [Migration("20231222134837_Initial")]
     partial class Initial
     {
         /// <inheritdoc />
@@ -127,6 +127,12 @@ namespace BlazorCrm.Server.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
+                    b.Property<double?>("Latitude")
+                        .HasColumnType("float");
+
+                    b.Property<double?>("Longitude")
+                        .HasColumnType("float");
+
                     b.Property<string>("NickName")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
@@ -203,14 +209,14 @@ namespace BlazorCrm.Server.Migrations
                         new
                         {
                             Id = 1,
-                            DateCreated = new DateTime(2023, 12, 8, 17, 0, 28, 391, DateTimeKind.Local).AddTicks(7138),
+                            DateCreated = new DateTime(2023, 12, 22, 15, 48, 37, 738, DateTimeKind.Local).AddTicks(8517),
                             EmployeeId = 1,
                             Text = "1st employee"
                         },
                         new
                         {
                             Id = 2,
-                            DateCreated = new DateTime(2023, 12, 8, 17, 0, 28, 391, DateTimeKind.Local).AddTicks(7184),
+                            DateCreated = new DateTime(2023, 12, 22, 15, 48, 37, 738, DateTimeKind.Local).AddTicks(8560),
                             EmployeeId = 2,
                             Text = "2st employee"
                         });
@@ -224,12 +230,40 @@ namespace BlazorCrm.Server.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("Name")
+                    b.Property<bool>("Availability")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DateDeleted")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DateUpdated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<float>("Dimensions")
+                        .HasColumnType("real");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<float>("Price")
+                        .HasColumnType("real");
+
+                    b.Property<int>("ProductCode")
                         .HasColumnType("int");
+
+                    b.Property<string>("ProductName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Text")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<float>("Weight")
+                        .HasColumnType("real");
 
                     b.HasKey("Id");
 

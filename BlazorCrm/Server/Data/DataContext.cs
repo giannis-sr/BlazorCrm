@@ -15,7 +15,7 @@ namespace BlazorCrm.Server.Data
         {
             base.OnConfiguring(optionsBuilder);
             optionsBuilder.
-                UseSqlServer("Server=.\\SQLExpress;Database=BlazorCrmDb;Trusted_Connection=true;TrustServerCertificate=true;");
+                UseSqlServer("Server=.\\SQLExpress;Database=BlazorCrmDb1;Trusted_Connection=true;TrustServerCertificate=true;");
         }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)

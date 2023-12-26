@@ -1,7 +1,112 @@
 ﻿@page "/products"
 
+@inject NavigationManager NavigationManager
+@inject HttpClient Http
 <h3>Products</h3>
+<SfGrid DataSource="GridData" AllowFiltering="true" AllowPaging="true" Toolbar="@(new List<string>() { "Search"})">
 
-@code { 
-    //change
+    <GridColumns>
+        <GridFilterSettings Type="Syncfusion.Blazor.Grids.FilterType.CheckBox"></GridFilterSettings>
+        <GridColumn Width="60">
+            <Template>
+                @{
+                    var product = context as Product;
+                    <SfButton CssClass="e-inherit" IconCss="e-icons e-edit"
+                              OnClick="@(() => EditProduct(product!.Id))"></SfButton>
+
+                }
+            </Template>
+
+        </GridColumn>
+        <GridColumn Width="60">
+            <Template>
+                @{
+                    var product = context as Product;
+                    <SfButton CssClass="e-inherit" IconCss="e-icons e-delete"
+                              OnClick="@(() => DeleteProduct(product!))"></SfButton>
+                }
+            </Template>
+        </GridColumn>
+
+        <GridColumn Field="ProductName" HeaderText="Product Name"></GridColumn>
+        <GridColumn Field="ProductCode" HeaderText="ProductCode"></GridColumn>
+        <GridColumn Field="Availability" HeaderText="Availability"></GridColumn>
+        <GridColumn Field="ProductImage" HeaderText="Product Image"></GridColumn>
+        <GridColumn Field="Weight" HeaderText="Weight"></GridColumn>
+    </GridColumns>
+
+</SfGrid>
+
+<p>
+
+    <SfButton IsPrimary="true" Content="Create New Product" OnClick="CreateProduct"></SfButton>
+</p>
+
+<SfDialog Width="335px" IsModal="true" @bind-Visible="showDeleteDialog">
+    <DialogTemplates>
+        <Header>Are you sure?</Header>
+        <Content>
+            <p>Do you really want to delete @productToDelete!.ProductName?</p>
+        </Content>
+    </DialogTemplates>
+    <DialogButtons>
+        <DialogButton Content="Yep." IsPrimary="false" OnClick="ConfirmDeleteProduct"></DialogButton>
+        <DialogButton Content="Nope." IsPrimary="true" OnClick="CanselDeleteProduct"></DialogButton>
+    </DialogButtons>
+    <DialogAnimationSettings Effect="@DialogEffect.Zoom"></DialogAnimationSettings>
+</SfDialog>
+@code {
+    Product? productToDelete;
+    public List<Product> GridData { get; set; } = new List<Product>();
+
+    bool showDeleteDialog = false;
+
+    protected override async Task OnInitializedAsync()
+    {
+        var result = await Http.GetFromJsonAsync<List<Product>>("api/products");
+        if (result is not null)
+        {
+            GridData = result;
+        }
+    }
+
+    void EditProduct(int id)
+    {
+        NavigationManager.NavigateTo($"products/edit/{id}");
+    }
+
+    void CreateProduct()
+    {
+        NavigationManager.NavigateTo($"products/new");
+    }
+
+    void DeleteProduct(Product product)
+    {
+        productToDelete = product;
+        showDeleteDialog = true;
+    }
+
+    void CanselDeleteProduct()
+    {
+        showDeleteDialog = false;
+    }
+
+    async Task ConfirmDeleteProduct()
+    {
+        if (productToDelete is null)
+        {
+            return;
+        }
+
+        showDeleteDialog = false;
+        var result = await Http.DeleteAsync($"api/products/{productToDelete.Id}");
+        if (result.IsSuccessStatusCode)
+        {
+            var jsonResult = await result.Content.ReadFromJsonAsync<List<Product>>();
+            if (jsonResult is not null)
+            {
+                GridData = jsonResult;
+            }
+        }
+    }
 }

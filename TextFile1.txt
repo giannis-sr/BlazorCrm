@@ -1,0 +1,11 @@
+1) cd.\BlazorCrm
+2) cd .\Server
+3)dotnet ef migrations add Initial
+4)dotnet ef database update
+
+
+update
+1) cd .\BlazorCrm
+2) cd .\Server
+3)dotnet ef migrations add (changes name)
+4)dotnet ef database update

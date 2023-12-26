@@ -8,6 +8,8 @@
 
   <ItemGroup>
     <PackageReference Include="Syncfusion.Blazor" Version="24.1.41" />
+	  <PackageReference Include="System.Drawing.Common" Version="8.0.0" />
+
   </ItemGroup>
 
   <ItemGroup>

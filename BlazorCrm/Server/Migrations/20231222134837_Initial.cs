@@ -54,6 +54,8 @@ namespace BlazorCrm.Server.Migrations
                     Salary = table.Column<float>(type: "real", nullable: false),
                     IsDeleted = table.Column<bool>(type: "bit", nullable: false),
                     DateOfBirth = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    Latitude = table.Column<double>(type: "float", nullable: true),
+                    Longitude = table.Column<double>(type: "float", nullable: true),
                     DateUpdated = table.Column<DateTime>(type: "datetime2", nullable: true),
                     DateCreated = table.Column<DateTime>(type: "datetime2", nullable: true),
                     DateDeleted = table.Column<DateTime>(type: "datetime2", nullable: true),
@@ -71,8 +73,17 @@ namespace BlazorCrm.Server.Migrations
                 {
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
-                    Name = table.Column<int>(type: "int", nullable: false),
-                    Text = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    ProductName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    ProductCode = table.Column<int>(type: "int", nullable: false),
+                    Price = table.Column<float>(type: "real", nullable: false),
+                    Availability = table.Column<bool>(type: "bit", nullable: false),
+                    Weight = table.Column<float>(type: "real", nullable: false),
+                    Dimensions = table.Column<float>(type: "real", nullable: false),
+                    Text = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    IsDeleted = table.Column<bool>(type: "bit", nullable: false),
+                    DateUpdated = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DateCreated = table.Column<DateTime>(type: "datetime2", nullable: true),
+                    DateDeleted = table.Column<DateTime>(type: "datetime2", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -101,11 +112,11 @@ namespace BlazorCrm.Server.Migrations
 
             migrationBuilder.InsertData(
                 table: "Employees",
-                columns: new[] { "Id", "DateCreated", "DateDeleted", "DateEnd", "DateOfBirth", "DateStart", "DateUpdated", "Email", "FirstName", "IsDeleted", "LastName", "NickName", "Phone", "Place", "Salary" },
+                columns: new[] { "Id", "DateCreated", "DateDeleted", "DateEnd", "DateOfBirth", "DateStart", "DateUpdated", "Email", "FirstName", "IsDeleted", "LastName", "Latitude", "Longitude", "NickName", "Phone", "Place", "Salary" },
                 values: new object[,]
                 {
-                    { 1, null, null, null, new DateTime(2001, 2, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, "Nikos.Bezos@gmail.com", "Nikos", false, "Bezos", "nickbez", "232045553", "Trikala", 3000f },
-                    { 2, null, null, null, new DateTime(2001, 2, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, "Nikos.Bezos@gmail.com", "Nikos", false, "Bezos", "nickbez", "232045553", "Trikala", 3000f }
+                    { 1, null, null, null, new DateTime(2001, 2, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, "Nikos.Bezos@gmail.com", "Nikos", false, "Bezos", null, null, "nickbez", "232045553", "Trikala", 3000f },
+                    { 2, null, null, null, new DateTime(2001, 2, 3, 0, 0, 0, 0, DateTimeKind.Unspecified), null, null, "Nikos.Bezos@gmail.com", "Nikos", false, "Bezos", null, null, "nickbez", "232045553", "Trikala", 3000f }
                 });
 
             migrationBuilder.InsertData(
@@ -113,8 +124,8 @@ namespace BlazorCrm.Server.Migrations
                 columns: new[] { "Id", "DateCreated", "EmployeeId", "Text" },
                 values: new object[,]
                 {
-                    { 1, new DateTime(2023, 12, 8, 17, 0, 28, 391, DateTimeKind.Local).AddTicks(7138), 1, "1st employee" },
-                    { 2, new DateTime(2023, 12, 8, 17, 0, 28, 391, DateTimeKind.Local).AddTicks(7184), 2, "2st employee" }
+                    { 1, new DateTime(2023, 12, 22, 15, 48, 37, 738, DateTimeKind.Local).AddTicks(8517), 1, "1st employee" },
+                    { 2, new DateTime(2023, 12, 22, 15, 48, 37, 738, DateTimeKind.Local).AddTicks(8560), 2, "2st employee" }
                 });
 
             migrationBuilder.CreateIndex(

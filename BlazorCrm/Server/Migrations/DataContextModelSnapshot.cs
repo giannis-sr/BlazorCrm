@@ -206,14 +206,14 @@ namespace BlazorCrm.Server.Migrations
                         new
                         {
                             Id = 1,
-                            DateCreated = new DateTime(2023, 12, 10, 14, 44, 0, 848, DateTimeKind.Local).AddTicks(8004),
+                            DateCreated = new DateTime(2023, 12, 22, 15, 48, 37, 738, DateTimeKind.Local).AddTicks(8517),
                             EmployeeId = 1,
                             Text = "1st employee"
                         },
                         new
                         {
                             Id = 2,
-                            DateCreated = new DateTime(2023, 12, 10, 14, 44, 0, 848, DateTimeKind.Local).AddTicks(8054),
+                            DateCreated = new DateTime(2023, 12, 22, 15, 48, 37, 738, DateTimeKind.Local).AddTicks(8560),
                             EmployeeId = 2,
                             Text = "2st employee"
                         });
@@ -227,12 +227,40 @@ namespace BlazorCrm.Server.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("Name")
+                    b.Property<bool>("Availability")
+                        .HasColumnType("bit");
+
+                    b.Property<DateTime?>("DateCreated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DateDeleted")
+                        .HasColumnType("datetime2");
+
+                    b.Property<DateTime?>("DateUpdated")
+                        .HasColumnType("datetime2");
+
+                    b.Property<float>("Dimensions")
+                        .HasColumnType("real");
+
+                    b.Property<bool>("IsDeleted")
+                        .HasColumnType("bit");
+
+                    b.Property<float>("Price")
+                        .HasColumnType("real");
+
+                    b.Property<int>("ProductCode")
                         .HasColumnType("int");
+
+                    b.Property<string>("ProductName")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
 
                     b.Property<string>("Text")
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
+
+                    b.Property<float>("Weight")
+                        .HasColumnType("real");
 
                     b.HasKey("Id");
 
