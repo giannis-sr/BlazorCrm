@@ -18,10 +18,11 @@ namespace BlazorCrm.Shared
         public int ProductCode { get; set; }
         public float Price { get; set; }
         public bool Availability { get; set; }
-        [NotMapped]
-        public Image ProductImage { get; set; }
+        //[NotMapped]
+        //public Image ProductImage { get; set; }
         public float Weight { get; set; }
         public float Dimensions { get; set; }
+        [Required]
         public string Text { get; set; }
         public bool IsDeleted { get; set; }
         public DateTime? DateUpdated { get; set; }

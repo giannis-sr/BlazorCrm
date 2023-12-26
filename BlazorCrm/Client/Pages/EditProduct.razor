@@ -14,13 +14,14 @@ else
 
 <div>
     <EditForm Model="product" OnValidSubmit="HandleSubmit">
-        
-        <SfTextBox CssClass="e-outline" Placeholder="First Name" FloatLabelType="@FloatLabelType.Auto" @bind-Value="product.ProductName" />
+        <DataAnnotationsValidator></DataAnnotationsValidator>
+        <SfTextBox CssClass="e-outline" Placeholder="ProductName" FloatLabelType="@FloatLabelType.Auto" @bind-Value="product.ProductName" />
+        <SfTextBox CssClass="e-outline" Placeholder="Text" FloatLabelType="@FloatLabelType.Auto" @bind-Value="product.Text" />
 
-        @* <ValidationMessage For="(() => product.ProductName)"></ValidationMessage> *@
 
-        @* <SfTextBox CssClass="e-outline" Placeholder="Last Name" FloatLabelType="@FloatLabelType.Auto" @bind-Value="product.ProductCode.ToString()" /> *@
 
+        <ValidationMessage For="(() => product.ProductName)"></ValidationMessage>
+        <ValidationMessage For="(() => product.Text)"></ValidationMessage>
 
 
         <hr />
@@ -44,6 +45,7 @@ else
 
 
 
+   
     [Parameter]
     public int? Id { get; set; }
 
@@ -107,10 +109,6 @@ else
                 // Εδώ μπορείτε να εμφανίσετε το μήνυμα σφάλματος
                 Console.WriteLine(ex.Message);
             }
-
-
-
-
         }
         else
         {

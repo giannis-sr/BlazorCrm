@@ -30,7 +30,7 @@ namespace BlazorCrm.Server.Controllers
             var result = await _context.Products.FindAsync(id);
             if (result is null)
             {
-                return NotFound("Contact not found.");
+                return NotFound("product  not found.");
             }
 
             return result;
@@ -39,6 +39,7 @@ namespace BlazorCrm.Server.Controllers
         public async Task<ActionResult<List<Product>>> CreateProducts(Product product)
         {
             _context.Products.Add(product);
+
             await _context.SaveChangesAsync();
 
             return Ok();
@@ -50,14 +51,15 @@ namespace BlazorCrm.Server.Controllers
             var dbProduct = await _context.Products.FindAsync(id);
             if (dbProduct is null)
             {
-                return NotFound("Contact not found.");
+                return NotFound("product not found.");
             }
 
             dbProduct.ProductName = product.ProductName;
+
             dbProduct.ProductCode = product.ProductCode;
             dbProduct.Price = product.Price;
             dbProduct.Availability = product.Availability;
-            dbProduct.ProductImage = product.ProductImage;
+            //dbProduct.ProductImage = product.ProductImage;
             dbProduct.Weight = product.Weight;
             dbProduct.Dimensions = product.Dimensions;
             dbProduct.Text = product.Text;
