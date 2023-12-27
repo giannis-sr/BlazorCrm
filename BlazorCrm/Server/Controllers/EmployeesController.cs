@@ -16,6 +16,12 @@ namespace BlazorCrm.Server.Controllers
         {
             _context = context;
         }
+        [HttpGet("count")]
+        public async Task<ActionResult<int>> GetActiveEmployeesCount()
+        {
+            var count = await _context.Employees.Where(e => !e.IsDeleted).CountAsync();
+            return count;
+        }
 
         [HttpGet]
         public async Task<ActionResult<List<Employee>>> GetAllEmployees()

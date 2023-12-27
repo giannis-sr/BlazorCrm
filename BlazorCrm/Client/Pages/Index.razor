@@ -3,6 +3,8 @@
 @using Syncfusion.Blazor.Navigations
 @using Syncfusion.Blazor.Schedule.Internal
 @inject IJSRuntime JSRuntime;
+@inject HttpClient Http
+
 
 @using Syncfusion.Blazor.Charts
 @using Syncfusion.Blazor.Grids
@@ -25,17 +27,17 @@
 
         <DashboardLayoutPanel AllowDragging="false" Column="2" Row="0" SizeX="2" SizeY="1">
             <HeaderTemplate><div>Panel 1</div></HeaderTemplate>
-            <ContentTemplate><div>Panel Content</div></ContentTemplate>
+            <ContentTemplate><div style="font-size:20px;">Number of Employees: @employeeCount</div></ContentTemplate>
         </DashboardLayoutPanel>
 
         <DashboardLayoutPanel AllowDragging="false" Column="4" Row="0" SizeX="2" SizeY="1">
             <HeaderTemplate><div>Panel 2</div></HeaderTemplate>
-            <ContentTemplate><div>Panel Content</div></ContentTemplate>
+            <ContentTemplate><div style="font-size:20px;">Number of Customers: @customerCount</div></ContentTemplate>
         </DashboardLayoutPanel>
 
         <DashboardLayoutPanel AllowDragging="false" Column="6" Row="0" SizeX="2" SizeY="1">
             <HeaderTemplate><div>Panel 3</div></HeaderTemplate>
-            <ContentTemplate><div>Panel Content</div></ContentTemplate>
+            <ContentTemplate><div style="font-size:20px;">Number of Products: @productCount</div></ContentTemplate>
         </DashboardLayoutPanel>
 
         <DashboardLayoutPanel AllowDragging="false" Column="0" Row="1" SizeX="4" SizeY="3">
@@ -95,6 +97,23 @@
     SfChart barchartObj;
     SfRangeNavigator rangeObj;
     SfChart linechartObj;
+
+    int employeeCount = 0;
+    int customerCount = 0;
+    int productCount = 0;
+
+    //o αριθμός των εργαζομένων/ πελατων
+    protected override async Task OnInitializedAsync()
+    {
+        
+        employeeCount = await Http.GetFromJsonAsync<int>("api/employees/count");
+        customerCount = await Http.GetFromJsonAsync<int>("api/customers/count");
+        productCount = await Http.GetFromJsonAsync<int>("api/products/count");
+
+
+    }
+
+   
 
     private object[] Value = new object[] { new DateTime(2006, 01, 01), new DateTime(2008, 01, 01) };
     public class ChartData

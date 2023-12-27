@@ -16,6 +16,13 @@ namespace BlazorCrm.Server.Controllers
             _context = context;
         }
 
+        [HttpGet("count")]
+        public async Task<ActionResult<int>> GetActiveProductsCount()
+        {
+            var count = await _context.Products.Where(e => !e.IsDeleted).CountAsync();
+            return count;
+        }
+
         [HttpGet]
         public async Task<ActionResult<List<Product>>> GetAllProducts()
         {
