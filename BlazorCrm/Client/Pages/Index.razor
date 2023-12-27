@@ -19,24 +19,24 @@
 <SfDashboardLayout CellSpacing="@(new double[]{10 ,10 })" Columns="8">
     <DashboardLayoutPanels>
         <DashboardLayoutPanel AllowDragging="false" Column="0" Row="0" SizeX="2" SizeY="1">
-            <HeaderTemplate><div>Panel 0</div></HeaderTemplate>
+            <HeaderTemplate><div>In Active Employee</div></HeaderTemplate>
             <ContentTemplate>
-                
+                <div style="font-size:20px;">Number of Employees: @inactiveCount</div>
             </ContentTemplate>
         </DashboardLayoutPanel>
 
         <DashboardLayoutPanel AllowDragging="false" Column="2" Row="0" SizeX="2" SizeY="1">
-            <HeaderTemplate><div>Panel 1</div></HeaderTemplate>
+            <HeaderTemplate><div>Active Employee</div>/div></HeaderTemplate>
             <ContentTemplate><div style="font-size:20px;">Number of Employees: @employeeCount</div></ContentTemplate>
         </DashboardLayoutPanel>
 
         <DashboardLayoutPanel AllowDragging="false" Column="4" Row="0" SizeX="2" SizeY="1">
-            <HeaderTemplate><div>Panel 2</div></HeaderTemplate>
+            <HeaderTemplate><div>Active Customers</div></HeaderTemplate>
             <ContentTemplate><div style="font-size:20px;">Number of Customers: @customerCount</div></ContentTemplate>
         </DashboardLayoutPanel>
 
         <DashboardLayoutPanel AllowDragging="false" Column="6" Row="0" SizeX="2" SizeY="1">
-            <HeaderTemplate><div>Panel 3</div></HeaderTemplate>
+            <HeaderTemplate><div>Products</div></HeaderTemplate>
             <ContentTemplate><div style="font-size:20px;">Number of Products: @productCount</div></ContentTemplate>
         </DashboardLayoutPanel>
 
@@ -101,6 +101,8 @@
     int employeeCount = 0;
     int customerCount = 0;
     int productCount = 0;
+    int inactiveCount = 0;
+
 
     //o αριθμός των εργαζομένων/ πελατων
     protected override async Task OnInitializedAsync()
@@ -109,6 +111,8 @@
         employeeCount = await Http.GetFromJsonAsync<int>("api/employees/count");
         customerCount = await Http.GetFromJsonAsync<int>("api/customers/count");
         productCount = await Http.GetFromJsonAsync<int>("api/products/count");
+        inactiveCount = await Http.GetFromJsonAsync<int>("api/employees/inactivecount");
+
 
 
     }
