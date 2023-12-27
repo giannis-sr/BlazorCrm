@@ -26,7 +26,7 @@
         </DashboardLayoutPanel>
 
         <DashboardLayoutPanel AllowDragging="false" Column="2" Row="0" SizeX="2" SizeY="1">
-            <HeaderTemplate><div>Active Employee</div>/div></HeaderTemplate>
+            <HeaderTemplate><div>Active Employee</div></HeaderTemplate>
             <ContentTemplate><div style="font-size:20px;">Number of Employees: @employeeCount</div></ContentTemplate>
         </DashboardLayoutPanel>
 
@@ -42,7 +42,19 @@
 
         <DashboardLayoutPanel AllowDragging="false" Column="0" Row="1" SizeX="4" SizeY="3">
             <HeaderTemplate><div>Panel 4</div></HeaderTemplate>
-            <ContentTemplate><div>Panel Content</div></ContentTemplate>
+            <ContentTemplate>
+                 <div style="height:auto; width:auto;">
+                <SfAccumulationChart Title="Mobile Browser Statistics">
+                    <AccumulationChartSeriesCollection>
+                        <AccumulationChartSeries DataSource="@StatisticsDetails" XName="Browser" YName="Users"
+                                                 Name="Browser">
+                        </AccumulationChartSeries>
+                    </AccumulationChartSeriesCollection>
+
+                    <AccumulationChartLegendSettings Visible="true"></AccumulationChartLegendSettings>
+                </SfAccumulationChart>
+                </div>
+            </ContentTemplate>
         </DashboardLayoutPanel>
 
         <DashboardLayoutPanel AllowDragging="false" Column="4" Row="1" SizeX="4" SizeY="3">           
@@ -103,6 +115,23 @@
     int productCount = 0;
     int inactiveCount = 0;
 
+    int SKATA = 5;
+    public class Statistics
+    {
+        public string Browser { get; set; }
+        public int Users { get; set; }
+      
+    }
+
+    public List<Statistics> StatisticsDetails = new List<Statistics>
+    {
+        new Statistics { Browser = "Chrome", Users =  44 },
+        new Statistics { Browser = "UC Browser", Users = 17 },
+        new Statistics { Browser = "iPhone", Users = 19 },
+        new Statistics { Browser = "Others", Users = 4  },
+        new Statistics { Browser = "Opera", Users = 11 },
+        new Statistics { Browser = "Android", Users = 12 },
+    };
 
     //o αριθμός των εργαζομένων/ πελατων
     protected override async Task OnInitializedAsync()
