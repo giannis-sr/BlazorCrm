@@ -19,7 +19,7 @@
 <SfDashboardLayout CellSpacing="@(new double[]{10 ,10 })" Columns="8">
     <DashboardLayoutPanels>
         <DashboardLayoutPanel AllowDragging="false" Column="0" Row="0" SizeX="2" SizeY="1">
-            <HeaderTemplate><div>In Active Employee</div></HeaderTemplate>
+            <HeaderTemplate><div>InActive Employee</div></HeaderTemplate>
             <ContentTemplate>
                 <div style="font-size:20px;">Number of Employees: @inactiveCount</div>
             </ContentTemplate>
@@ -78,7 +78,32 @@
 
         <DashboardLayoutPanel AllowDragging="false" Column="0" Row="4" SizeX="8" SizeY="3">
             <HeaderTemplate><div>Panel 6</div></HeaderTemplate>
-            <ContentTemplate><div>Panel Content</div></ContentTemplate>
+            <ContentTemplate>
+                <div style="height:auto; width:auto;">
+                    <div style="font-size:50px;">Total costs of salary employees : @totalsalary.ToString("N2")</div>
+                    <hr />
+                    <hr />
+                    <div style="font-size:50px;">Employees with Upcoming End Date:</div>
+                    <hr />
+
+                    <ul>
+                        @if (employeesWithUpcomingEndDate != null && employeesWithUpcomingEndDate.Any())
+                        {
+                            <ul>
+                                @foreach (var name in employeesWithUpcomingEndDate)
+                                {
+                                    <li style="font-size:50px;">@name</li>
+
+                                }
+                            </ul>
+                        }
+                        else
+                        {
+                            <p>No upcoming end dates found</p>
+                        }
+                    </ul>                   
+                </div>
+            </ContentTemplate>
         </DashboardLayoutPanel>
 
 
@@ -114,13 +139,19 @@
     int customerCount = 0;
     int productCount = 0;
     int inactiveCount = 0;
-
-    int SKATA = 5;
+    float totalsalary = 0;
+    public List<string> employeesWithUpcomingEndDate = new List<string>();
+   
+    public class EmployeesWithUpcomingEndDateResponse
+    {
+        public List<string> Names { get; set; }
+    }
+    
     public class Statistics
     {
         public string Browser { get; set; }
         public int Users { get; set; }
-      
+
     }
 
     public List<Statistics> StatisticsDetails = new List<Statistics>
@@ -136,14 +167,28 @@
     //o αριθμός των εργαζομένων/ πελατων
     protected override async Task OnInitializedAsync()
     {
-        
+
         employeeCount = await Http.GetFromJsonAsync<int>("api/employees/count");
         customerCount = await Http.GetFromJsonAsync<int>("api/customers/count");
         productCount = await Http.GetFromJsonAsync<int>("api/products/count");
-        inactiveCount = await Http.GetFromJsonAsync<int>("api/employees/inactivecount");
+        inactiveCount = await Http.GetFromJsonAsync<int>("api/employees/inactivecount"); 
+        totalsalary = await Http.GetFromJsonAsync<int>("api/employees/totalsalary");
 
 
-
+   
+        try
+        {
+            var response = await Http.GetFromJsonAsync<EmployeesWithUpcomingEndDateResponse>("api/employees/employeeswithupcomingenddate");
+            if (response != null)
+            {
+                employeesWithUpcomingEndDate = response.Names;
+                
+            }
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine(ex.Message);
+        }     
     }
 
    

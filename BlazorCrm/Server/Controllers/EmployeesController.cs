@@ -16,6 +16,38 @@ namespace BlazorCrm.Server.Controllers
         {
             _context = context;
         }
+        public class EmployeesWithUpcomingEndDateResponse
+        {
+            public List<string> Names { get; set; }
+        }
+
+        [HttpGet("employeeswithupcomingenddate")]
+        public async Task<ActionResult<EmployeesWithUpcomingEndDateResponse>> GetEmployeesWithUpcomingEndDate()
+        {
+            var today = DateTime.Today;
+            var endDateThreshold = today.AddDays(10);
+
+            var employeesWithUpcomingEndDate = await _context.Employees
+                .Where(e => !e.IsDeleted && e.DateEnd > today && e.DateEnd <= endDateThreshold)
+                .Select(e => e.FirstName + " " + e.LastName)
+                .ToListAsync();
+
+            var response = new EmployeesWithUpcomingEndDateResponse
+            {
+                Names = employeesWithUpcomingEndDate
+            };
+
+            return response;
+        }
+
+
+        [HttpGet("totalsalary")]
+        public async Task<ActionResult<decimal>> GetTotalSalaryOfActiveEmployees()
+        {
+            var totalSalary = await _context.Employees.Where(e => !e.IsDeleted).SumAsync(e => e.Salary);
+            return Convert.ToDecimal(totalSalary);
+        }
+
         [HttpGet("count")]
         public async Task<ActionResult<int>> GetActiveEmployeesCount()
         {
