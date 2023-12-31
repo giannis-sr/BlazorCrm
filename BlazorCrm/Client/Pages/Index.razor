@@ -46,13 +46,13 @@
                  <div style="height:auto; width:auto;">
                 <SfAccumulationChart Title="Mobile Browser Statistics">
                     <AccumulationChartSeriesCollection>
-                        <AccumulationChartSeries DataSource="@StatisticsDetails" XName="Browser" YName="Users"
-                                                 Name="Browser">
+                            <AccumulationChartSeries DataSource="@StatisticsDetails" XName="TitleChartSfAccumulation" YName="ValueChart"
+                                                     Name="TitleChartSfAccumulation">
                         </AccumulationChartSeries>
                     </AccumulationChartSeriesCollection>
 
                     <AccumulationChartLegendSettings Visible="true"></AccumulationChartLegendSettings>
-                </SfAccumulationChart>
+                </SfAccumulationChart>                   
                 </div>
             </ContentTemplate>
         </DashboardLayoutPanel>
@@ -149,28 +149,20 @@
     int inactiveCount = 0;
     float totalsalary = 0;
     public List<string> employeesWithUpcomingEndDate = new List<string>();
-   
+
     public class EmployeesWithUpcomingEndDateResponse
     {
         public List<string> Names { get; set; }
     }
-    
+
     public class Statistics
     {
-        public string Browser { get; set; }
-        public int Users { get; set; }
+        public string TitleChartSfAccumulation { get; set; }
+        public int ValueChart { get; set; }
 
     }
 
-    public List<Statistics> StatisticsDetails = new List<Statistics>
-    {
-        new Statistics { Browser = "Chrome", Users =  44 },
-        new Statistics { Browser = "UC Browser", Users = 17 },
-        new Statistics { Browser = "iPhone", Users = 19 },
-        new Statistics { Browser = "Others", Users = 4  },
-        new Statistics { Browser = "Opera", Users = 11 },
-        new Statistics { Browser = "Android", Users = 12 },
-    };
+    public List<Statistics> StatisticsDetails = new List<Statistics>();
 
     //o αριθμός των εργαζομένων/ πελατων
     protected override async Task OnInitializedAsync()
@@ -181,7 +173,6 @@
         productCount = await Http.GetFromJsonAsync<int>("api/products/count");
         inactiveCount = await Http.GetFromJsonAsync<int>("api/employees/inactivecount"); 
         totalsalary = await Http.GetFromJsonAsync<int>("api/employees/totalsalary");
-
         try
         {
             var response = await Http.GetFromJsonAsync<EmployeesWithUpcomingEndDateResponse>("api/employees/employeeswithupcomingenddate");
@@ -195,6 +186,18 @@
         {
             Console.WriteLine(ex.Message);
         }     
+
+        StatisticsDetails = new List<Statistics>
+        {
+            new Statistics { TitleChartSfAccumulation = "Employees", ValueChart = employeeCount },
+            new Statistics { TitleChartSfAccumulation = "Customers", ValueChart = customerCount },            
+            new Statistics { TitleChartSfAccumulation = "Products", ValueChart = productCount },
+            new Statistics { TitleChartSfAccumulation = "Inactive Employees", ValueChart = inactiveCount},
+           
+        };
+
+        // Ενημερώνει το UI για να αντικατοπτρίζει τις αλλαγές
+        StateHasChanged();
     }
 
    
