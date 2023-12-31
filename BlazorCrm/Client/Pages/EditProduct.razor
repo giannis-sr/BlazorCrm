@@ -17,7 +17,7 @@ else
         <DataAnnotationsValidator></DataAnnotationsValidator>
         <SfTextBox CssClass="e-outline" Placeholder="ProductName" FloatLabelType="@FloatLabelType.Auto" @bind-Value="product.ProductName" />
         <SfTextBox CssClass="e-outline" Placeholder="Text" FloatLabelType="@FloatLabelType.Auto" @bind-Value="product.Text" />
-
+        <SfNumericTextBox Placeholder="product code" @bind-Value="product.ProductCode"></SfNumericTextBox>
 
 
         <ValidationMessage For="(() => product.ProductName)"></ValidationMessage>

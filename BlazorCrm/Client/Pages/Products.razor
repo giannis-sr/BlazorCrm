@@ -2,6 +2,9 @@
 
 @inject NavigationManager NavigationManager
 @inject HttpClient Http
+
+
+
 <h3>Products</h3>
 <SfGrid DataSource="GridData" AllowFiltering="true" AllowPaging="true" Toolbar="@(new List<string>() { "Search"})">
 
@@ -29,10 +32,18 @@
         </GridColumn>
 
         <GridColumn Field="ProductName" HeaderText="Product Name"></GridColumn>
-        <GridColumn Field="ProductCode" HeaderText="ProductCode"></GridColumn>
+@*         <GridColumn Field="ProductCode" HeaderText="ProductCode"></GridColumn>
+ *@        <GridColumn Field="ProductName" HeaderText="Product Name"></GridColumn>
         <GridColumn Field="Availability" HeaderText="Availability"></GridColumn>
         <GridColumn Field="ProductImage" HeaderText="Product Image"></GridColumn>
         <GridColumn Field="Weight" HeaderText="Weight"></GridColumn>
+        <GridColumn Field="ProductCode" HeaderText="Barcode">
+            <Template>
+                <SfBarcodeGenerator Width="200px" Height="50px" Type="@BarcodeType.Code128" Value="123456789"></SfBarcodeGenerator>
+            </Template>
+        </GridColumn>
+        
+        
     </GridColumns>
 
 </SfGrid>
@@ -56,7 +67,7 @@
     <DialogAnimationSettings Effect="@DialogEffect.Zoom"></DialogAnimationSettings>
 </SfDialog>
 @code {
-   
+  
 
     Product? productToDelete;
     public List<Product> GridData { get; set; } = new List<Product>();
