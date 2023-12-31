@@ -78,7 +78,7 @@
 
         <DashboardLayoutPanel AllowDragging="false" Column="0" Row="4" SizeX="8" SizeY="3">
             <HeaderTemplate><div>Panel 6</div></HeaderTemplate>
-            <ContentTemplate>
+            <ContentTemplate >
                 <div style="height:auto; width:auto;">
                     <div style="font-size:50px;">Total costs of salary employees : @totalsalary.ToString("N2")</div>
                     <hr />
@@ -89,13 +89,21 @@
                     <ul>
                         @if (employeesWithUpcomingEndDate != null && employeesWithUpcomingEndDate.Any())
                         {
-                            <ul>
-                                @foreach (var name in employeesWithUpcomingEndDate)
-                                {
-                                    <li style="font-size:50px;">@name</li>
-
-                                }
-                            </ul>
+                            <div style="height: 300px; overflow: auto;">
+                                <ul style="list-style-type: none; padding: 0;">
+                                    @if (employeesWithUpcomingEndDate != null && employeesWithUpcomingEndDate.Any())
+                                    {
+                                        @foreach (var name in employeesWithUpcomingEndDate)
+                                        {
+                                            <li style="font-size: 50px;">@name</li>
+                                        }
+                                    }
+                                    else
+                                    {
+                                        <p>No upcoming end dates found</p>
+                                    }
+                                </ul>
+                            </div>
                         }
                         else
                         {
@@ -174,8 +182,6 @@
         inactiveCount = await Http.GetFromJsonAsync<int>("api/employees/inactivecount"); 
         totalsalary = await Http.GetFromJsonAsync<int>("api/employees/totalsalary");
 
-
-   
         try
         {
             var response = await Http.GetFromJsonAsync<EmployeesWithUpcomingEndDateResponse>("api/employees/employeeswithupcomingenddate");
