@@ -10,5 +10,7 @@ On the employees page, you can view all the employees and edit their data. The p
 Customers:
 Similar to the previous page, the customers section allows you to view and edit information for all customers. It includes quick search functionality and provides the same capabilities as the employees page.
 ![Screenshot 2024-01-22 102256](https://github.com/giannis-sr/BlazorCrm/assets/68141105/ba54dd84-f389-4312-954c-1fe7a9b07726)
-![Screenshot 2024-01-22 102319](https://github.com/giannis-sr/BlazorCrm/assets/68141105/dcf355a4-6bea-4d1c-806f-d9b47a76ceb7)
+Products:
+![Screenshot 2024-01-23 101952](https://github.com/giannis-sr/BlazorCrm/assets/68141105/3731799f-3f3f-4fcc-8676-129a4a4bbff2)
+Notes:
 ![Screenshot 2024-01-22 102401](https://github.com/giannis-sr/BlazorCrm/assets/68141105/01c8ba10-ce5f-4475-b926-f31dd0fab976)
